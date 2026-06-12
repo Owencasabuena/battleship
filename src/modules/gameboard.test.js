@@ -1,7 +1,7 @@
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
 
-test('Gameboard: Place ship', () => {
+test('Gameboard: Player place ship', () => {
     const gameboard = new Gameboard();
     const ship = new Ship('destroyer', 3);
     gameboard.placeShip(ship, [[0,1], [0,2], [0,3]]);

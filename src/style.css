@@ -1,0 +1,60 @@
+/* Basic page reset for a clean look */
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Makes the two boards sit side-by-side */
+.game-container {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.board-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* The magic CSS Grid that creates the 10x10 layout */
+.player-board, .enemy-board {
+    display: grid;
+    grid-template-columns: repeat(10, 35px); /* 10 columns, 35px wide */
+    grid-template-rows: repeat(10, 35px);    /* 10 rows, 35px tall */
+    gap: 1px; /* Creates the grid lines! */
+    background-color: #333; /* The color of the grid lines */
+    border: 2px solid #333;
+}
+
+/* The individual water squares */
+.cell {
+    background-color: lightblue;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair; /* Changes the mouse pointer so it feels like a game */
+}
+
+/* The class your JS adds when it finds a ship! */
+.cell.ship {
+    background-color: darkslategray;
+}
+
+/* If a cell has the class 'hit', make it red! */
+.cell.hit {
+    background-color: #ff4d4d; 
+}
+
+/* If a cell has the class 'miss', make it a tiny white dot or a gray square! */
+.cell.miss {
+    background-color: #e0e0e0;
+}

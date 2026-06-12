@@ -9,7 +9,7 @@ test('Player: Computer attack', () => {
     const computer = new Player('computer');
     const moves = new Set();
     for(let i = 0; i < 100; i++) {
-        let move =computer.makeRandomMove();
+        let move = computer.makeRandomMove();
         moves.add(move.toString());
     }
     expect(moves.size).toBe(100);
