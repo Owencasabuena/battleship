@@ -55,8 +55,11 @@ function playRound(targetCoordinate) {
         return;
     }
    
-    let generateMove = player2.makeRandomMove();
+    let generateMove = player2.makeMove();
     let computerAttack = player1.gameboard.receiveAttack(generateMove);
+    if (computerAttack) {
+        player2.reportHit(generateMove);
+    }
     renderAttack(playerBoardDiv, generateMove, computerAttack);
     
     if(player1.gameboard.isGameOver()) {
