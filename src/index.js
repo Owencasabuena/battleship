@@ -59,14 +59,23 @@ function initGame() {
         const shipCoordinates = event.target.dataset.coordinate.split(',').map(Number);
 
         const ship = new Ship(shipName, shipLength);
-        player1.gameboard.placeShip(ship, shipCoordinates);
-        playerBoardDiv.innerHTML = '';
-        createBoard(playerBoardDiv, player1.gameboard, true);
-        const selectedShip = document.querySelector(`[data-name="${shipName}"]`);
-        selectedShip.remove();
+        const startX = shipCoordinates[0];
+        const startY = shipCoordinates[1];
+        const fullShipCoordinates = [];
+        for (let i = 0; i < shipLength; i++) {
+            fullShipCoordinates.push([startX, startY + i])
+        }
+        const isPlacementSuccessful = player1.gameboard.placeShip(ship, fullShipCoordinates);
+        if (isPlacementSuccessful) {
+            playerBoardDiv.innerHTML = '';
+            createBoard(playerBoardDiv, player1.gameboard, true);
+            
+            const selectedShip = document.querySelector(`[data-name="${shipName}"]`);
+            selectedShip.remove();
 
-        if(dockyard.children.length === 0) {
-            enemyBoardDiv.addEventListener('click', handleBoardClick);
+            if(dockyard.children.length === 0) {
+                enemyBoardDiv.addEventListener('click', handleBoardClick);
+            }
         }
     });
     enemyBoardDiv = document.querySelector('.enemy-board');
@@ -76,7 +85,9 @@ function initGame() {
 }
 
 function handleBoardClick(event) {
-    if (!event.target.classList.contains('cell')) {
+    if (!event.target.classList.contains('cell') || 
+        event.target.classList.contains('hit') || 
+        event.target.classList.contains('miss')) {
         return;
     }
 
