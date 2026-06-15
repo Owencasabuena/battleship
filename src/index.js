@@ -34,6 +34,18 @@ let player1;
 let player2;
 let playerBoardDiv;
 let enemyBoardDiv;
+let isHorizontal = true;
+
+const rotateBtn = document.querySelector('#rotate-btn');
+rotateBtn.addEventListener('click', () => {
+    isHorizontal = !isHorizontal;
+    dockyard.classList.toggle('vertical');
+    if(isHorizontal) {
+        rotateBtn.textContent = "Rotate Fleet: Horizontal";
+    } else {
+        rotateBtn.textContent = "Rotate Fleet: Vertical";
+    }
+});
 
 function initGame() {
     player1 = new Player('human');
@@ -63,7 +75,11 @@ function initGame() {
         const startY = shipCoordinates[1];
         const fullShipCoordinates = [];
         for (let i = 0; i < shipLength; i++) {
-            fullShipCoordinates.push([startX, startY + i])
+            if (isHorizontal) {
+                fullShipCoordinates.push([startX, startY + i]);
+            } else {
+                fullShipCoordinates.push([startX + i, startY]);
+            }
         }
         const isPlacementSuccessful = player1.gameboard.placeShip(ship, fullShipCoordinates);
         if (isPlacementSuccessful) {
